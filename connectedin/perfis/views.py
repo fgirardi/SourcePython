@@ -6,18 +6,10 @@ def index(request):
 
 def exibir(request, perfil_id):
 
-	perfil = Perfil()
+	perfil = Perfil.objects.get(id=perfil_id)
 
-	if perfil_id == '1':
-		perfil = Perfil('Fabiano Girardi',
-				'fabiano.girardi@hotmail.com', 
-				'77777',
-				'Fgirardi ME')
-	if perfil_id == '2':
-		perfil = Perfil('Guilherme Orlando Girardi',
-				'guilherme.girardi@hotmail.com', 
-				'88888',
-				'Fgirardi ME')
+	return render(request, 'perfil.html',{"perfil" : perfil})
 
+def convidar(request, perfil_id):
 
-		return render(request, 'perfil.html',{"perfil" : perfil})
+	pass
