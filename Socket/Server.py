@@ -30,3 +30,12 @@ def BindSocket():
 	except socket.error as msg:
 		print("Error BindSocket. {0}\nRetriying...".format(str(host)))
 		BindSocket()
+
+
+def SocketAccept():
+
+	conn, address = s.accept()
+
+	print("Conn={0} IP={1} Port={2}".format(conn, address[0], address[1]))
+	SendCommand(conn)
+	conn.close()
