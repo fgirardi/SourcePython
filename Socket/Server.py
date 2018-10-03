@@ -1,13 +1,15 @@
-import Socket
+import socket
 import sys
 
 def CreateSocket():
 
 	try:
 
-		global port = 9999
-		global host = ""
+		global port 
+		global host
 		global s
+		port = 9999
+		host = ""
 		s = socket.socket()
 		
 	except socket.error as msg:
@@ -16,7 +18,7 @@ def CreateSocket():
 
 def BindSocket():
 
-	try
+	try:
 
 		global host
 		global port
@@ -24,7 +26,7 @@ def BindSocket():
 
 		print("Binding the Port {0}".format(str(host)))
 
-		s.bind(host,port)
+		s.bind((host,port))
 		s.listen(5)
 	
 	except socket.error as msg:
@@ -35,7 +37,29 @@ def BindSocket():
 def SocketAccept():
 
 	conn, address = s.accept()
-
 	print("Conn={0} IP={1} Port={2}".format(conn, address[0], address[1]))
 	SendCommand(conn)
 	conn.close()
+
+def SendCommand(conn):
+	
+	while True:
+		cmd = input()
+		if cmd.upper() == 'QUIT':
+		    conn.close()
+		    s.close()
+		    sys.exit()
+		if len(str.encode(cmd)) > 0:
+		    conn.send(str.encode(cmd))
+		    client_response = str(conn.recv(1024),"utf-8")
+		    #print(client_response, end="")
+		    print(client_response)
+
+
+
+def main():
+	CreateSocket()
+	BindSocket()
+	SocketAccept()
+
+main()
