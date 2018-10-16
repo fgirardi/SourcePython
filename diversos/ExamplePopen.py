@@ -3,7 +3,7 @@ import shlex
 
 def cmd():
 
-	p = subprocess.Popen(["ls -lat"],
+	p = subprocess.Popen(['ls -lat'],
 			stdin = subprocess.PIPE, 
 			stdout = subprocess.PIPE, 
 			stderr = subprocess.PIPE,
