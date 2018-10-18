@@ -1,0 +1,41 @@
+Index: idrac6.py
+===================================================================
+--- idrac6.py	(revision 10958)
++++ idrac6.py	(working copy)
+@@ -79,11 +79,36 @@
+ 
+ 	print(json.dumps(json_ret, indent=4, sort_keys=True))
+ 
++
++def getNIC(dev, regExpInfo):
++	'''
++	Displays the current and static NIC settings for iDRAC.
++	NIC = Network Interface Card
++	Parameters:
++		dev = current device
++		reExpInfo = Regular expression to find the specific configuration to return.
++	'''
++	sendline(dev, 'racadm getniccfg')
++	ret = receive(dev, [dev.prompt_exact])
++	if not success(ret):
++		return '' 
++	# Take all the configuration
++	tmp = dev.spawned.before.strip().replace('\r', '')
++	# Do a filter using regExpInfo
++	matches = re.finditer(regExpInfo, tmp, re.MULTILINE)
++	for matchNum, match in enumerate(matches):
++		info = match.group()
++		info = re.sub(r"\s+", "", info)
++	
++	return "[iDrac.NIC.1]\n" + info.replace('\r','') 
++
+ def SPgetConfig(dev):
+ 	result = ''
+ 	for i in ['info.version', 'snmp', 'ssh', 'telnet', 'webserver', 'syslog', 'activedirectory']:
+ 		result = result + '\n' + get_cmd(dev, 'racadm get iDrac.' + i)
+ 
++	result = result + '\n' + getNIC(dev,'(^IPv6 Enabled\s+=\s)(\d$)')
++
+ 	for i in xrange(1, 17):
+ 		result = result + '\n' + get_cmd(dev, 'racadm get iDrac.users.' + str(i))
+ 

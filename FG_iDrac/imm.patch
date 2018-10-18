@@ -1,0 +1,43 @@
+Index: imm.py
+===================================================================
+--- imm.py	(revision 10958)
++++ imm.py	(working copy)
+@@ -63,6 +63,21 @@
+ 
+ 	return dev.spawned.before.strip().replace('\r', '').splitlines()
+ 
++def getIfconfig(dev, json_ret):
++	'''
++	Send ifconfig eth0 to display the current Ethernet interface configuration.
++	'''
++	cmd = 'ifconfig eth0'
++	for line in getCmdOutput(dev, cmd):
++		if '-ipv6' in line:
++			match = re.search('^(\s+-)(ipv6)\s+:\s+(enabled|disabled)$', line)
++			if not match:
++				continue
++			field = '{0}'.format(match.group(2).upper())
++			val = match.group(3)
++			if val:
++				json_ret['IMM']['IFCONFIG'][field] = val
++		
+ def getNTP(dev, json_ret):
+ 	synch = 'Disable'
+ 	for line in getCmdOutput(dev, 'ntp'):
+@@ -190,7 +205,7 @@
+ 
+ def SPgetConfig(dev):
+ 	json_ret = {'IMM' : {'SSH' : {}, 'Telnet' : {}, 'LDAP' : {},
+-		'Firmware' : {}, 'SNMP' : {}, 'NTP' : {}, 'LoginID' : {} } }
++		'Firmware' : {}, 'SNMP' : {}, 'NTP' : {}, 'LoginID' : {}, 'IFCONFIG' : {} } }
+ 
+ 	getUsers(dev, json_ret)
+ 	getPorts(dev, json_ret)
+@@ -201,6 +216,7 @@
+ 	getSSH(dev, json_ret)
+ 	getTelnet(dev, json_ret)
+ 	getNTP(dev, json_ret)
++	getIfconfig(dev, json_ret)
+ 
+ 	print(json.dumps(json_ret, indent=4, sort_keys=True))
+ 
