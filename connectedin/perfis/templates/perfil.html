@@ -5,10 +5,7 @@
 		<title>ConnectionIn</title>
 	</head>
 	<body>
-		<h1>Detalhes do Perfil</h1>
-		nome: {{perfil.nm_perfil}}, 
-		email: {{perfil.ds_email}},
-		telefone: {{perfil.nr_telefone}},
-		empresa: {{perfil.nm_empresa}}
+		<h1>Detalhes do Perfil: {{perfil.nm_perfil}} </h1>
+		<a href="{%url 'convidar' perfil.id%}"</a>
 	</body>
 </html>
