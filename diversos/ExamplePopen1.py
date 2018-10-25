@@ -7,7 +7,7 @@ def count_lines(website):
                                     shell=False)
     process_wc = subprocess.Popen(args2, stdin=process_curl.stdout,
                                   stdout=subprocess.PIPE, shell=False)
-    # Allow process_curl to receive a SIGPIPE if process_wc exits.
+    # Allow process_curl to receive a SIGPIPE if process_wc exits. 
     process_curl.stdout.close()
     return process_wc.communicate()[0]
 
