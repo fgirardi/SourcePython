@@ -1,10 +1,21 @@
-{% if perfis %}
-<ul>
-	{% for perfil in perfis %}
-	<li> 
-		<a href="{%url 'exibir' perfil.id %}"> {{ perfil.nm_perfil}} / {{ perfil.ds_email }} </li>
-	{% endfor %}
-</ul>
-{% else %}
-<p>/perfil não encontrado</p>
-{% endif %}
+{% extends "base.html" %}
+{% block body %}
+<div class="col-lg-12">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<strong>Todos os Perfis</strong>
+		</div>
+		{% if perfis %}
+			<ul>
+				{% for perfil in perfis %}
+				<li> 
+					<a href="{%url 'exibir' perfil.id %}"> {{ perfil.nm_perfil}} / {{ perfil.ds_email }} 
+				</li>
+				{% endfor %}
+			</ul>
+		{% else %}
+			<p>/perfil não encontrado</p>
+		{% endif %}
+	</div>
+</div>
+{% endblock % }
