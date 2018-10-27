@@ -1,16 +1,15 @@
-<!DOCTYPE hml>
-<html lang="pt-br">
-	<head>
-		<meta charset="UTF-8">
-		<title>ConnectionIn</title>
-	</head>
-	<body>
-		<h1>Detalhes do Perfil: {{ perfil.nm_perfil }} </h1>
-		nome: {{perfil.nm_perfil}},
-		email: {{perfil.ds_email}}
-		telefone: {{perfil.nr_telefone}},
-		empresa: {{perfil.nm_empresa}}
-		</br>
-		<a href="{%url 'convidar' perfil.id%}">Convidar</a>
-	</body>
-</html>
+{% extends "base.html" %}
+{%block body %}
+
+<div class="row">
+	<div class="col-lg-12">
+		<h2 style="margin-top: 0"> {{ perfil.nm_perfil }} </h2>
+		<address>
+			<strong> {{ perfil.nm_empresa }}</strong><br>
+			<abbr title="Telefone">Tel:</abbr> {{ perfil.nr_telefone }}<br>
+			<a href="mailto: {{ perfil.ds_email }}"> {{ perfil.ds_email}}</a>
+		</address>
+		<a href="{% url 'convidar' perfil.id %}">convidar</a>
+	</div>
+</div>
+{% endblock %}
