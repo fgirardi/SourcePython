@@ -9,7 +9,7 @@
 			<ul>
 				{% for perfil in perfis %}
 				<li> 
-					<a href="{%url 'exibir' perfil.id %}"> {{ perfil.nm_perfil}} / {{ perfil.ds_email }} 
+					<a href="{%url 'exibir' perfil.id %}"> {{ perfil.nm_perfil }} / {{ perfil.ds_email }} 
 				</li>
 				{% endfor %}
 			</ul>
@@ -34,6 +34,7 @@
 		{% else %}
 			<div class="panel-body">
 				<p>Nenhum convite recebido :(</p>
+			</div>
 		{% endif %}
 		{% endwith %}
 	</div>
@@ -53,6 +54,7 @@
 		{% else %}
 			<div class="panel-body">
 				<p>Nenhum contato :(</p>
+			</div>
 		{% endif %}
 		{% endwith %}
 	</div>
