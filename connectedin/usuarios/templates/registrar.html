@@ -1,0 +1,28 @@
+{% extends "base_usuario.html" %}
+{% block body %}
+	<form class="form-signin" action="{% url 'registrar' %}" method="post">
+		<h2 class="form-signin-heading">Crie o seu usuario" </h2>
+
+		< input="id_email" name="email" type="text"
+			class="form-control" placeholder="Email *"
+		required>
+
+		< input="id_nome" name="nome" type="text"
+		      class="form-control" placeholder=" *Nome Completo"
+		required>
+		
+		< input="id_senha" name="senha" type="password"
+			class="form-control" placeholder="Senha *"
+		required>
+
+		< input="id_telefone" name="telefone" type="text"
+		      class="form-control" placeholder="Telefone">
+		
+		< input="id_nome_empresa" name="nome_empresa" type="text">
+		class="form-control" placeholder="Empresa">
+
+		<hr/>
+		<button class="btn btn-lg btn-primary btn-block" type="submit">Registrar</button>
+
+	</form>
+{% endblock %}
