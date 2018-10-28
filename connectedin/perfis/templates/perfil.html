@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{%block body %}
+{% block body %}
 
 <div class="row">
 	<div class="col-lg-12">
@@ -7,9 +7,13 @@
 		<address>
 			<strong> {{ perfil.nm_empresa }}</strong><br>
 			<abbr title="Telefone">Tel:</abbr> {{ perfil.nr_telefone }}<br>
-			<a href="mailto: {{ perfil.ds_email }}"> {{ perfil.ds_email}}</a>
+			<a href="mailto: {{ perfil.ds_email }}"> {{ perfil.ds_email }}</a>
 		</address>
-		<a href="{% url 'convidar' perfil.id %}">convidar</a>
+		{% if ja_eh_contato %}
+			<div class="well whell-sm">Voces estao conectados!</div>
+		{% else %}
+			<a href="{% url 'convidar' perfil.id %}">convidar</a>
+		{%endif %}
 	</div>
 </div>
 {% endblock %}

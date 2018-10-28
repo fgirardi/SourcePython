@@ -24,10 +24,10 @@
 				<strong>Convites aguardando aprovação: {{total_de_convites }}</strong>
 			<div>
 			<ul class="list-group">
-				{% for convite in perfil_logado.convitest_recebididos.all %}
+				{% for convite in perfil_logado.convites_recebidos.all %}
 				<li class="list-group-item">
 					{{ convite.solicitante.nm_solicitante }}
-					<a href="#" class="pull-right">aceitar</a>
+					<a href="{% url 'aceitar' convite.id%}"> class="pull-right">aceitar</a>
 				</li> 
 				{% endfor %}
 			</ul>
@@ -36,7 +36,26 @@
 				<p>Nenhum convite recebido :(</p>
 		{% endif %}
 		{% endwith %}
-
 	</div>
+	<div class="panel panel-default">
+		{% with total_de_contatos=perfil_logado.contatos.count%}
+		{% if total_de_contatos.count > 0 %}
+			<div class="panel-heading">
+				<strong>Voce tem {{ total_de_contatos }}contato{{ total_de_contatos |pluralize }}na sua lista</strong>
+			<div>
+			<ul class="list-group">
+				{% for contato in perfil_logado.contatos.all %}
+				<li class="list-group-item">
+					<a href="{% url 'exibir' contato.id%}">{{ contato.nm_contato }}</a>
+				</li> 
+				{% endfor %}
+			</ul>
+		{% else %}
+			<div class="panel-body">
+				<p>Nenhum contato :(</p>
+		{% endif %}
+		{% endwith %}
+	</div>
+
 </div>
 {% endblock %}
