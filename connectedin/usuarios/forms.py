@@ -1,4 +1,4 @@
-from django imports forms
+from django import forms
 from django.contrib.auth.models import User
 
 class RegistrarUsuarioForm(forms.Form):
@@ -18,7 +18,7 @@ class RegistrarUsuarioForm(forms.Form):
 		user_exists = User.objects.filter(username=self.data['nome']).exists()
 		if user_exists:
 			self.adiciona_erro('Usuario ja existe')
-			valid = false 
+			valid = False 
 
 		return valid
 

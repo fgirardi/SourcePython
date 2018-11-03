@@ -11,8 +11,10 @@ def exibir(request, perfil_id):
 	perfil_logado = get_perfil_logado(request)
 	ja_eh_logado = perfil in perfil_logado.contatos.all() 
 
-	return render(request, 'perfil.html',{"perfil" : perfil,
-			'ja_eh_contato' : ja_eh_contato })
+	return render(request, 'perfil.html',{"perfil" : perfil, 
+						'perfil_logado' : get_perfil_logado(request), 
+						'ja_eh_contato' : ja_eh_contato}
+			)
 
 def convidar(request, perfil_id):
 
@@ -27,4 +29,5 @@ def aceitar(request, convite_id):
 	return redirect('index')
 
 def get_perfil_logado(request):
-	return Perfil.objects.get(id=1)
+	#return request.user.perfil 
+	return 1

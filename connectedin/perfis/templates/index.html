@@ -14,48 +14,51 @@
 				{% endfor %}
 			</ul>
 		{% else %}
-			<p>/perfil não encontrado</p>
+		<div class="panel-body">
+			<p>perfil não encontrado</p>
+		</div>
 		{% endif %}
 	</div>
 	<div class="panel panel-default">
-		{% with total_de_convites=perfil_logado.convites_recebidos.count%}
-		{% if perfil_logado.convites_recibos.count > 0 %}
-			<div class="panel-heading">
-				<strong>Convites aguardando aprovação: {{total_de_convites }}</strong>
-			<div>
-			<ul class="list-group">
-				{% for convite in perfil_logado.convites_recebidos.all %}
-				<li class="list-group-item">
-					{{ convite.solicitante.nm_solicitante }}
-					<a href="{% url 'aceitar' convite.id%}"> class="pull-right">aceitar</a>
-				</li> 
-				{% endfor %}
-			</ul>
-		{% else %}
-			<div class="panel-body">
-				<p>Nenhum convite recebido :(</p>
-			</div>
-		{% endif %}
+		{% with total_de_convites=perfil_logado.convites_recebidos.count %}
+			{% if total_de_convites > 0 %}
+
+				<div class="panel-heading">
+						<strong>Voce tem {{ total_de_convites }} convite{{total_de_convites|pluralize }} aguardando aprovacao</strong>
+				</div>
+				<ul class="list-group">
+					{% for convite in perfil_logado.convites_recebidos.all %}
+					<li class="list-group-item">
+						{{ convite.solicitante.nm_solicitante }}
+						<a href="{% url 'aceitar' convite.id%}"> class="pull-right">aceitar</a>
+					</li> 
+					{% endfor %}
+				</ul>
+			{% else %}
+				<div class="panel-body">
+					<p>Nenhum convite recebido :(</p>
+				</div>
+			{% endif %}
 		{% endwith %}
 	</div>
 	<div class="panel panel-default">
-		{% with total_de_contatos=perfil_logado.contatos.count%}
-		{% if total_de_contatos.count > 0 %}
-			<div class="panel-heading">
-				<strong>Voce tem {{ total_de_contatos }}contato{{ total_de_contatos |pluralize }}na sua lista</strong>
-			<div>
-			<ul class="list-group">
-				{% for contato in perfil_logado.contatos.all %}
-				<li class="list-group-item">
-					<a href="{% url 'exibir' contato.id%}">{{ contato.nm_contato }}</a>
-				</li> 
-				{% endfor %}
-			</ul>
-		{% else %}
-			<div class="panel-body">
-				<p>Nenhum contato :(</p>
-			</div>
-		{% endif %}
+		{% with total_de_contatos=perfil_logado.contatos.count %}
+			{% if total_de_contatos.count > 0 %}
+				<div class="panel-heading">
+					<strong>Voce tem {{ total_de_contatos }} contato{{ total_de_contatos |pluralize }} na sua lista</strong>
+				<div>
+				<ul class="list-group">
+					{% for contato in perfil_logado.contatos.all %}
+					<li class="list-group-item">
+						<a href="{% url 'exibir' contato.id%}">{{ contato.nm_contato }}</a>
+					</li> 
+					{% endfor %}
+				</ul>
+			{% else %}
+				<div class="panel-body">
+					<p>Nenhum contato :(</p>
+				</div>
+			{% endif %}
 		{% endwith %}
 	</div>
 
