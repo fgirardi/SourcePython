@@ -1,14 +1,24 @@
 class ABC():
 	x = "Some Value"
+	y = ""
+
+	def SetY(self, value):
+		print("Debug SetY {0}".format(value))
+		self.y = value
+
 
 obj = ABC()
 
-print(obj.x)
+print("x {0}".format(obj.x))
 
 
 print(getattr(obj,"x"))
 
+getattr(obj,"SetY")("200")
 
-setattr(obj,"a","definiton of a")
+print("obj.y={0}".format(obj.y))
+
+
+setattr(obj,"a","definition of a")
 
 print(obj.a)
