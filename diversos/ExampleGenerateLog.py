@@ -1,6 +1,6 @@
 import logging
-logging.basicConfig(level=logging.INFO)
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO, filename = "fabiano.log")
+logging.basicConfig(level=logging.DEBUG,filename = "fabiano.log")
 logger = logging.getLogger(__name__)
 
 # create a file handler
